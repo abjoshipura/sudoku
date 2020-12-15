@@ -1,6 +1,6 @@
 import pygame, sys, time, random
 
-difficulty = 10
+difficulty = 5
 frame_size_x = 720
 frame_size_y = 480
 check_errors = pygame.init()
@@ -45,7 +45,7 @@ def show_score(choice, color, font, size):
         score_rect.midtop = (frame_size_x/2, frame_size_y/1.25)
     game_window.blit(score_surface, score_rect)
 
-
+#def game():
 while True:
     for event in pygame.event.get():
         if event.type == pygame.QUIT:
@@ -82,7 +82,7 @@ while True:
     snake_body.insert(0, list(snake_pos))
     if snake_pos[0] == food_pos[0] and snake_pos[1] == food_pos[1]:
         score += 1
-        difficulty+=2
+        difficulty+=1
         food_spawn = False
     else:
         snake_body.pop()
@@ -104,3 +104,12 @@ while True:
     show_score(1, yellow, 'times new roman', 20)
     pygame.display.update()
     speed.tick(difficulty)
+    
+## while True:
+##    op=input("Do you want to play (y/n)")
+##    op=op.lower()
+##    if op=='y':
+##        game()
+##    else:
+##        print("Thank You!")
+##        break
