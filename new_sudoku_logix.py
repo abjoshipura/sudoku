@@ -1,8 +1,4 @@
-from random import *
-import time 
-from os import *
-environ['DEBUG_ENABLED']='1'
-           
+from random import *     
 def transpose_grid(grid):
     block_c = []
     i=0
@@ -113,12 +109,6 @@ def creator():
     final_grid=[block_r[0][0],block_r[0][1],block_r[0][2],
                 block_r[1][0],block_r[1][1],block_r[1][2],
                 block_r[2][0],block_r[2][1],block_r[2][2]]
-    debug = environ['DEBUG_ENABLED']
-    if (debug == '1'):
-        for i in range(len(final_grid)):
-            for j in range(len(final_grid[i])):
-                           print(final_grid[j][i],end =' ')
-            print()
-        print(check(final_grid))       
+      
     return remove_nums(final_grid)
 
