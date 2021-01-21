@@ -7,14 +7,23 @@ import new_sudoku_logix
 sudoku = new_sudoku_logix.creator()
 
 app = QApplication(sys.argv)
-cell1 = QPushButton("Hi")
+selected_cell = QWidget()
 
 
 @Slot()
-def say_hello():
-    print("Button clicked, Hello!")
-    cell1.setText("Hey!")
-    cell1.setStyleSheet("color: #fff")
+def select_box(cell):
+    selected_cell = cell
+    if selected_cell != cell:
+        cell.setStyleSheet(
+            "border: 2px solid blue; border-style:groove;")
+    else:
+        print("Halo!")
+        cell.setStyleSheet(
+            "border: default; border-style:solid;")
+
+
+def choose_num(num):
+    selected_cell.setText(str(num))
 
 
 def window():
@@ -22,21 +31,21 @@ def window():
     grid = QGridLayout()
     for i in range(len(sudoku)):
         for j in range(len(sudoku)):
+            dummy_cell = QPushButton("")
             if sudoku[i][j] != 0:
-                cell = QLineEdit(str(sudoku[i][j]), readOnly=True)
-                cell.setAlignment(Qt.AlignCenter)
+                cell = QPushButton(str(sudoku[i][j]))
+                cell.setDisabled(True)
+                cell.setStyleSheet("color: #000")
                 cell.setFixedHeight(70)
                 grid.addWidget(cell, i, j)
             else:
-                cell = cell1
-                # cell.keyPressEvent()
-                # cell.setAlignment(Qt.AlignCenter)
-                cell.clicked.connect(say_hello)
+                cell = dummy_cell
+                cell.clicked.connect(lambda *args, arg=cell: select_box(arg))
                 cell.setFixedHeight(70)
                 grid.addWidget(cell, i, j)
     for i in range(9):
         button = QPushButton(str(i + 1))
-        button.clicked.connect(say_hello)
+        button.clicked.connect(lambda *args, num=i: choose_num(num))
         button.setMinimumHeight(20)
         grid.addWidget(button)
     win.setLayout(grid)
