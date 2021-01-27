@@ -5,25 +5,42 @@ import sys
 import new_sudoku_logix
 
 sudoku = new_sudoku_logix.creator()
-
 app = QApplication(sys.argv)
-selected_cell = QWidget()
+
+global selected_cell
+selected_cell = QPushButton()
+global is_selected
+is_selected = False
 
 
 @Slot()
 def select_box(cell):
-    selected_cell = cell
-    if selected_cell != cell:
+    global selected_cell
+    temp_cell = selected_cell
+
+    global is_selected
+    temp_bool = is_selected
+
+    if temp_cell != cell and not(temp_bool):
+        selected_cell = cell
+        is_selected = True
+        cell.setStyleSheet(
+            "border: 2px solid blue; border-style:groove;")
+    elif temp_cell != cell and temp_bool:
+        selected_cell.setStyleSheet("")
+        selected_cell = cell
         cell.setStyleSheet(
             "border: 2px solid blue; border-style:groove;")
     else:
-        print("Halo!")
-        cell.setStyleSheet(
-            "border: default; border-style:solid;")
+        selected_cell = 0
+        is_selected = False
+        cell.setStyleSheet("")
 
 
 def choose_num(num):
-    selected_cell.setText(str(num))
+    global selected_cell
+    temp_cell = selected_cell
+    temp_cell.setText(str(num + 1))
 
 
 def window():
