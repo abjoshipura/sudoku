@@ -24,7 +24,7 @@ def randomize_grid(bl_r):
     return bl_r
 
 def remove_nums(grid):
-    num_remove = 25
+    num_remove = 32
     while num_remove > 0:
         r = randint(0, 8)
         c = randint(0, 8)
@@ -99,7 +99,7 @@ def creator():
                [default_grid[3],default_grid[4],default_grid[5]],
                [default_grid[6],default_grid[7],default_grid[8]]]
 
-    x = 27
+    x = 100
     while (x>0):
         block_r = randomize_grid(block_r)   
         block_r = transpose_grid(block_r)
@@ -110,5 +110,6 @@ def creator():
                 block_r[1][0],block_r[1][1],block_r[1][2],
                 block_r[2][0],block_r[2][1],block_r[2][2]]
       
+    #print (final_grid)
     return remove_nums(final_grid)
 

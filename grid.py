@@ -52,17 +52,19 @@ def window():
     reset_button.clicked.connect(reset)
     grid.addWidget(reset_button)
 
+
+
     win.setLayout(grid)
     win.setWindowTitle("Sudoku")
     win.setGeometry(50, 50, 200, 200)
     win.show()
     sys.exit(app.exec_())
+    
 
 
 def select_box(cell):
     global selected_cell
     temp_cell = selected_cell
-
     global is_selected
     temp_bool = is_selected
 
@@ -82,6 +84,7 @@ def select_box(cell):
         cell.setStyleSheet("")
 
 
+
 def choose_num(num):
     global selected_cell
     temp_cell = selected_cell
@@ -97,13 +100,18 @@ def check():
                 cell_vals[i].append(int(cells[i * 9 + j].text()))
             else:
                 cell_vals[i].append(0)
-    return cell_vals
+    val=new_sudoku_logix.check(cell_vals)
+    if val:
+       print('Congratulations!!! You have one a free game of Snek')
+       import snek
+       snek.game()
+        
+    else:
+        print('You have not solved the Sudoku correctly :(')
+        
 
 
 def reset():
     for cell in cells:
         if cell.isEnabled():
             cell.setText("")
-
-
-window()
