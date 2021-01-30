@@ -1,6 +1,10 @@
 from os import *
-environ['PYGAME_HIDE_SUPPORT_PROMPT']='1'
-import pygame, sys, time, random
+import pygame
+import sys
+import time
+import random
+
+environ['PYGAME_HIDE_SUPPORT_PROMPT'] = '1'
 
 difficulty = 10
 frame_size_x = 720
@@ -14,19 +18,22 @@ black = pygame.Color(0, 0, 0)
 yellow = pygame.Color(255, 255, 0)
 red = pygame.Color(255, 0, 255)
 green = pygame.Color(0, 255, 0)
-blue=pygame.Color(0, 0, 50)
-emerald=pygame.Color(0, 155, 119)
-raspberry=pygame.Color(210, 56, 108)
+blue = pygame.Color(0, 0, 50)
+emerald = pygame.Color(0, 155, 119)
+raspberry = pygame.Color(210, 56, 108)
 speed = pygame.time.Clock()
 snake_pos = [100, 50]
 snake_body = [[100, 50], [100-10, 50], [100-(2*10), 50]]
-food_pos = [random.randrange(1, (frame_size_x//10)) * 10, random.randrange(1, (frame_size_y//10)) * 10]
+food_pos = [random.randrange(1, (frame_size_x//10))
+            * 10, random.randrange(1, (frame_size_y//10)) * 10]
 food_spawn = True
 direction = 'RIGHT'
 global change_to
 change_to = direction
 
 score = 0
+
+
 def game_over():
     my_font = pygame.font.SysFont('avenir', 30)
     game_over_surface = my_font.render('Game Over :(', True, red)
@@ -50,6 +57,7 @@ def show_score(choice, color, font, size):
     else:
         score_rect.midtop = (frame_size_x/2, frame_size_y/1.25)
     game_window.blit(score_surface, score_rect)
+
 
 def game():
     global change_to
@@ -94,17 +102,20 @@ def game():
         snake_body.insert(0, list(snake_pos))
         if snake_pos[0] == food_pos[0] and snake_pos[1] == food_pos[1]:
             score += 1
-            difficulty+=1
+            difficulty += 1
             food_spawn = False
         else:
             snake_body.pop()
         if not food_spawn:
-            food_pos = [random.randrange(1, (frame_size_x//11)) * 10, random.randrange(1, (frame_size_y//11)) * 10]
+            food_pos = [random.randrange(
+                1, (frame_size_x//11)) * 10, random.randrange(1, (frame_size_y//11)) * 10]
         food_spawn = True
         game_window.fill(blue)
         for pos in snake_body:
-            pygame.draw.rect(game_window, raspberry, pygame.Rect(pos[0], pos[1], 10, 10))
-        pygame.draw.rect(game_window, emerald, pygame.Rect(food_pos[0], food_pos[1], 10, 10))
+            pygame.draw.rect(game_window, raspberry,
+                             pygame.Rect(pos[0], pos[1], 10, 10))
+        pygame.draw.rect(game_window, emerald, pygame.Rect(
+            food_pos[0], food_pos[1], 10, 10))
         if snake_pos[0] < 0 or snake_pos[0] > frame_size_x-10:
             game_over()
         if snake_pos[1] < 0 or snake_pos[1] > frame_size_y-10:
@@ -116,5 +127,6 @@ def game():
         show_score(1, yellow, 'avenir', 25)
         pygame.display.update()
         speed.tick(difficulty)
+
 
 game()

@@ -2,9 +2,9 @@ from PySide6.QtWidgets import *
 from PySide6.QtCore import *
 
 import sys
-import new_sudoku_logix
+import Logic.parent as parent
 
-sudoku = new_sudoku_logix.creator()
+sudoku = parent.creator()
 app = QApplication(sys.argv)
 
 global selected_cell
@@ -52,14 +52,11 @@ def window():
     reset_button.clicked.connect(reset)
     grid.addWidget(reset_button)
 
-
-
     win.setLayout(grid)
     win.setWindowTitle("Sudoku")
     win.setGeometry(50, 50, 200, 200)
     win.show()
     sys.exit(app.exec_())
-    
 
 
 def select_box(cell):
@@ -84,7 +81,6 @@ def select_box(cell):
         cell.setStyleSheet("")
 
 
-
 def choose_num(num):
     global selected_cell
     temp_cell = selected_cell
@@ -100,15 +96,14 @@ def check():
                 cell_vals[i].append(int(cells[i * 9 + j].text()))
             else:
                 cell_vals[i].append(0)
-    val=new_sudoku_logix.check(cell_vals)
+    val = parent.check(cell_vals)
     if val:
-       print('Congratulations!!! You have one a free game of Snek')
-       import snek
-       snek.game()
-        
+        print('Congratulations! You have won a free Snake Game')
+        import snek
+        snek.game()
+
     else:
-        print('You have not solved the Sudoku correctly :(')
-        
+        print('You have not solved the Sudoku :(')
 
 
 def reset():
