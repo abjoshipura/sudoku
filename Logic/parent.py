@@ -24,7 +24,7 @@ def randomize_grid(bl_r):
     return bl_r
 
 def remove_nums(grid):
-    num_remove = 32
+    num_remove = 25
     while num_remove > 0:
         r = randint(0, 8)
         c = randint(0, 8)
